@@ -1,37 +1,32 @@
-# Local development
+# Local development, with docker images.
 
-Obtain a shell inside the container :
+## Obtain a shell inside the container :
 
-    docker exec -it api bash
-
-## Initial setup
-
-    docker exec -u $(whoami) -it api php artisan telescope:install
-    docker exec -u $(whoami) -it api ln -s .env.dev .env
-    docker exec -u $(whoami) -it api composer install
-    docker exec -u $(whoami) -it api php artisan migrate
-    docker exec -u $(whoami) -it api php artisan db:seed
-    docker exec -u $(whoami) -it api php artisan ide-helper:generate
-    docker exec -u $(whoami) -it api php artisan ide-helper:models
-    docker exec -u $(whoami) -it api php artisan ide-helper:meta
-    docker exec -u $(whoami) -it api php artisan ide-helper:eloquent
+```bash
+docker exec -it api bash
+```
 
 ## Wipe database access & seed again
 
-    docker exec -u $(whoami) -it api php artisan db:wipe && docker exec -u $(whoami) -it api php artisan migrate &&  docker exec -u $(whoami) -it api php artisan db:seed
+```bash
+docker exec -u $(whoami) -it api php artisan db:wipe && docker exec -u $(whoami) -it api php artisan migrate &&  docker exec -u $(whoami) -it api php artisan db:seed
+```
 
-# Unit / Features tests
+## Unit / Features tests
 
-    docker exec -u $(whoami) -it api php artisan test
-    docker exec -u $(whoami) -it api php artisan test tests/Feature/APIUserOrg1_AD_Org2_D_Org3_VTest.php
-    docker exec -u $(whoami) -it api php artisan test --filter=APIUserOrg1_AD_Org2_D_Org3_VTest
-    docker exec -u $(whoami) -it api php artisan test --filter=APIUserOrg1_AD_Org2_D_Org3_VTest::testApiConfConnectorFromOrganization2PrimeReactTreeDb
-    docker exec -u $(whoami) -it api php artisan test --filter=APIUserOrg1_AD_Org2_D_Org3_VTest::testApiConfConnectorFromOrganization*
-    docker exec -u $(whoami) -it api php artisan test --filter=testApiConfConnectorFromOrganization*
+```bash
+docker exec -u $(whoami) -it api php artisan test
+docker exec -u $(whoami) -it api php artisan test tests/Feature/APIUserOrg1_AD_Org2_D_Org3_VTest.php
+docker exec -u $(whoami) -it api php artisan test --filter=APIUserOrg1_AD_Org2_D_Org3_VTest
+docker exec -u $(whoami) -it api php artisan test --filter=APIUserOrg1_AD_Org2_D_Org3_VTest::testApiConfConnectorFromOrganization2PrimeReactTreeDb
+docker exec -u $(whoami) -it api php artisan test --filter=APIUserOrg1_AD_Org2_D_Org3_VTest::testApiConfConnectorFromOrganization*
+docker exec -u $(whoami) -it api php artisan test --filter=testApiConfConnectorFromOrganization*
+```
 
+# Jetbrains, PhpStorm
 
-# PhpStorm
 ## Recommended plugins
+
 * Laravel IDEA or Laravel
 * Tree of Usage
 * DQL
@@ -39,4 +34,4 @@ Obtain a shell inside the container :
 
 ## Database plugin configuration
 
-Use the MariaDB module, container IP : `172.20.0.50`
+Use the MariaDB module, container IP of container `rootdb-db-api` : `172.20.0.50`
