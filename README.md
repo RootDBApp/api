@@ -1,9 +1,15 @@
+![RootDB](https://www.rootdb.fr/assets/logo_name_blue_500x250.png)
+
+# RootDB
+
+[RootDB](https://www.rootdb.fr) is a self-hosted reporting webapp.
+
 # Local development, with docker images.
 
 ## Obtain a shell inside the container :
 
 ```bash
-docker exec -it api bash
+docker exec -it dev-rootdb-api bash
 ```
 
 ## Wipe database access & seed again
