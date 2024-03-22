@@ -14,3 +14,7 @@ yarn-error.log
 _ide_helper.php
 _ide_helper_models.php
 .idea
+/app/Providers/TelescopeServiceProvider.php
+/database/migrations/0000*
+/database/migrations/2018*
+/database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php

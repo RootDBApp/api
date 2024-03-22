@@ -60,6 +60,8 @@ if [[ ! -f "${rdb_init_file}" ]]; then
     ln -s "${api_env_file}.dev" "${root_api_env_file}"
     ln -s "${root_api_env_file}" "${api_env_file}"
 
+    composer install
+
     touch "${api_init_file}"
   fi
 
