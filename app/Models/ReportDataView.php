@@ -75,6 +75,11 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Report whereAvgSecondsByRun($value)
  * @method static Builder|Report whereNumRuns($value)
  * @method static Builder|Report whereNumSecondsAllRun($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ReportCache> $cacheReports
+ * @property-read int|null $cache_reports_count
+ * @method static Builder|ReportDataView whereDescription($value)
+ * @method static Builder|ReportDataView whereDescriptionDisplayType($value)
+ * @method static Builder|ReportDataView whereName($value)
  * @mixin Eloquent
  */
 class ReportDataView extends ApiModel
