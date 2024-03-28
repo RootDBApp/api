@@ -18,8 +18,8 @@
     "awobaz/compoships" : "^2.3.0",
     "laravel/reverb" : "v1.0.0-beta4",
     "guzzlehttp/guzzle" : "^7.8.1",
-    "laravel/framework" : "^v11.0.8",
-    "laravel/sanctum" : "^v4.0.0",
+    "laravel/framework" : "^v11.1.0",
+    "laravel/sanctum" : "^v4.0.1",
     "laravel/tinker" : "^v2.9.0",
     "phlak/semver" : "^4.1.0",
     "pusher/pusher-php-server" : "^7.2.4",
@@ -29,11 +29,11 @@
   "require-dev" : {
     "barryvdh/laravel-ide-helper" : "^v3.0.0",
     "fzaninotto/faker" : "^v1.9.2",
-    "laravel/pint" : "^v1.14.0",
-    "laravel/telescope" : "^v5.0.0",
+    "laravel/pint" : "^v1.15.0",
+    "laravel/telescope" : "^v5.0.1",
     "mockery/mockery" : "^1.6.7",
     "nunomaduro/collision" : "^v8.1.1",
-    "phpunit/phpunit" : "^10.5.11",
+    "phpunit/phpunit" : "^10.5.15",
     "spatie/laravel-ignition" : "^2.4.2"
   },
   "config" : {
