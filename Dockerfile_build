@@ -20,11 +20,11 @@ RUN apt-get update && apt-get install -y \
 #RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions (script specific to official php docker container)
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
- && git clone https://github.com/php-memcached-dev/php-memcached /usr/src/php/ext/memcached \
- && cd /usr/src/php/ext/memcached \
- && docker-php-ext-configure memcached \
- && docker-php-ext-install memcached
+#RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+# && git clone https://github.com/php-memcached-dev/php-memcached /usr/src/php/ext/memcached \
+# && cd /usr/src/php/ext/memcached \
+# && docker-php-ext-configure memcached \
+# && docker-php-ext-install memcached
 
 
 # Get latest Composer
