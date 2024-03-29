@@ -1177,6 +1177,39 @@ LOCK TABLES `service_messages` WRITE;
 /*!40000 ALTER TABLE `service_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+--
+-- Table structure for table `telescope_entries`
+--
+CREATE TABLE `telescope_entries` (
+`sequence` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+`uuid` char(36) NOT NULL,
+`batch_id` char(36) NOT NULL,
+`family_hash` varchar(255) DEFAULT NULL,
+`should_display_on_index` tinyint(1) NOT NULL DEFAULT 1,
+`type` varchar(20) NOT NULL,
+`content` longtext NOT NULL,
+`created_at` datetime DEFAULT NULL,
+PRIMARY KEY (`sequence`),
+UNIQUE KEY `telescope_entries_uuid_unique` (`uuid`),
+KEY `telescope_entries_batch_id_index` (`batch_id`),
+KEY `telescope_entries_family_hash_index` (`family_hash`),
+KEY `telescope_entries_created_at_index` (`created_at`),
+KEY `telescope_entries_type_should_display_on_index_index` (`type`,`should_display_on_index`)
+) ENGINE=InnoDB AUTO_INCREMENT=451 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Table structure for table `telescope_entries_tags`
+--
+CREATE TABLE `telescope_entries_tags` (
+`entry_uuid` char(36) NOT NULL,
+`tag` varchar(255) NOT NULL,
+PRIMARY KEY (`entry_uuid`,`tag`),
+KEY `telescope_entries_tags_tag_index` (`tag`),
+CONSTRAINT `telescope_entries_tags_entry_uuid_foreign` FOREIGN KEY (`entry_uuid`) REFERENCES `telescope_entries` (`uuid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 --
 -- Table structure for table `user_preferences`
 --
