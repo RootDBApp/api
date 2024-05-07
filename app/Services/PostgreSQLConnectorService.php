@@ -294,7 +294,7 @@ class PostgreSQLConnectorService extends CommonConnectorService
 
         // Exclude row which contains the password.
         foreach ($this->connection->select('
-                    SELECT concat(table_schema, \'.\', table_name) as table_name, group_concat(privilege_type)
+                    SELECT concat(table_schema, \'.\', table_name) as table_name, string_agg(privilege_type, \', \')
                     FROM information_schema.role_table_grants
                     WHERE grantee = \'' . $this->confConnector->username . '\'
                     AND table_schema !~ \'information_schema\'
@@ -302,7 +302,7 @@ class PostgreSQLConnectorService extends CommonConnectorService
                     GROUP BY table_schema, table_name
                     ORDER BY table_name', []) as $grants) {
 
-            $all_grants[] = '<strong>' . $grants->table_name . '</strong>: ' . $grants->group_concat;
+            $all_grants[] = '<strong>' . $grants->table_name . '</strong>: ' . $grants->string_agg;
 
         }
 
@@ -962,7 +962,7 @@ class PostgreSQLConnectorService extends CommonConnectorService
 
         $stmt = $this->connection->getPdo()
             ->prepare("
-                SELECT GROUP_CONCAT(kc.column_name) AS column_names, tc.table_name, tc.constraint_name, ccu.column_name as referenced_column_name, ccu.table_name as referenced_table_name
+                SELECT string_agg(kc.column_name, ',') AS column_names, tc.table_name, tc.constraint_name, ccu.column_name as referenced_column_name, ccu.table_name as referenced_table_name
                 FROM information_schema.table_constraints tc
                          JOIN information_schema.key_column_usage kc ON kc.table_name = tc.table_name AND kc.table_schema = tc.table_schema AND kc.constraint_name = tc.constraint_name
                          LEFT JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema AND tc.constraint_type = 'FOREIGN KEY'

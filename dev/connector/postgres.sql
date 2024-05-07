@@ -1,7 +1,7 @@
 -- Get grants
-SELECT concat(table_schema, '.', table_name) as table_name, group_concat(privilege_type)
+SELECT concat(table_schema, '.', table_name) as table_name, string_agg(privilege_type, ', ')
 FROM information_schema.role_table_grants
-WHERE grantee = 'localuser'
+WHERE grantee = 'redmine'
 AND table_schema !~ 'information_schema'
 AND table_schema !~ '^pg_'
 GROUP BY table_schema, table_name
@@ -28,13 +28,12 @@ WHERE c.table_schema = 'public'
 ORDER BY c.table_schema, c.table_name;
 
 -- Get primary and foreign keys
-SELECT GROUP_CONCAT(kc.column_name) AS column_names, tc.table_name, tc.constraint_name, ccu.column_name as referenced_column_name, ccu.table_name as referenced_table_name
+SELECT string_agg(kc.column_name, ',') AS column_names, tc.table_name, tc.constraint_name, ccu.column_name as referenced_column_name, ccu.table_name as referenced_table_name
 FROM information_schema.table_constraints tc
          JOIN information_schema.key_column_usage kc ON kc.table_name = tc.table_name AND kc.table_schema = tc.table_schema AND kc.constraint_name = tc.constraint_name
          LEFT JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema AND tc.constraint_type = 'FOREIGN KEY'
 WHERE tc.table_schema = 'public'
   AND tc.constraint_type IN ('PRIMARY KEY', 'FOREIGN KEY')
-  AND tc.table_name = 'film_actor'
   AND kc.ordinal_position IS NOT NULL
 GROUP BY tc.table_schema, tc.table_name, tc.constraint_name, referenced_column_name, referenced_table_name
 ;
@@ -51,7 +50,7 @@ FROM pg_index AS pi
          JOIN pg_class as pc ON pc.oid = pi.indexrelid
          JOIN pg_am as pa ON pc.relam = pa.oid
          JOIN pg_namespace as pn ON pn.oid = pc.relnamespace AND pn.nspname = ANY (current_schemas(false))
-WHERE pc.relname = 'idx_fk_film_id';
+WHERE pn.nspname = 'public'
 ;
 
 
