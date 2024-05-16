@@ -34,34 +34,34 @@ class ConfConnector extends JsonResource
         $forAdmin = User::searchIfLoggedUserHasUiRoleGrant(RoleGrants::PERMISSION_EDIT, RoleGrants::RESOURCE_CONF_CONNECTOR) && $request->exists('for-admin');
 
         return [
-            'id'                       => $this->id,
-            'name'                     => $this->name,
-            'connector_database_id'    => $this->when($forAdmin, $this->connector_database_id),
-            'organization_id'          => $this->organization_id,
-            'use_ssl'                  => $this->use_ssl,
-            'host'                     => $this->when($forAdmin, $this->host),
-            'port'                     => $this->when($forAdmin, $this->port),
-            'database'                 => $this->when($forAdmin, $this->database),
-            'username'                 => $this->when($forAdmin, $this->username),
-            'password'                 => $this->when($forAdmin, Crypt::decrypt($this->password)),
-            'timeout'                  => $this->when($forAdmin, $this->timeout),
-            'raw_grants'               => $this->when($forAdmin, $this->raw_grants),
-            'ssl_cipher'               => $this->when($forAdmin, $this->ssl_cipher),
-            'ssl_ca'                   => $this->when($forAdmin, $this->ssl_ca),
-            'ssl_key'                  => $this->when($forAdmin, $this->ssl_key),
-            'ssl_cert'                 => $this->when($forAdmin, $this->ssl_cert),
-            'seems_ok'                 => $this->when($forAdmin, $this->seems_ok),
-            'global'                   => $this->global,
-//            'reports'                  => $this->when($forAdmin,
-//                function () {
-//                    return ReportBasic::collection($this->reports);
-//                }
-//            ),
-//            'report_parameter_inputs' => $this->when($forAdmin,
-//                function () {
-//                    return ReportParameterInputBasic::collection($this->reportParameterInputs);
-//                }
-//            ),
+            'id'                    => $this->id,
+            'name'                  => $this->name,
+            'connector_database_id' => $this->connector_database_id,
+            'organization_id'       => $this->organization_id,
+            'use_ssl'               => $this->use_ssl,
+            'host'                  => $this->when($forAdmin, $this->host),
+            'port'                  => $this->when($forAdmin, $this->port),
+            'database'              => $this->when($forAdmin, $this->database),
+            'username'              => $this->when($forAdmin, $this->username),
+            'password'              => $this->when($forAdmin, Crypt::decrypt($this->password)),
+            'timeout'               => $this->when($forAdmin, $this->timeout),
+            'raw_grants'            => $this->when($forAdmin, $this->raw_grants),
+            'ssl_cipher'            => $this->when($forAdmin, $this->ssl_cipher),
+            'ssl_ca'                => $this->when($forAdmin, $this->ssl_ca),
+            'ssl_key'               => $this->when($forAdmin, $this->ssl_key),
+            'ssl_cert'              => $this->when($forAdmin, $this->ssl_cert),
+            'seems_ok'              => $this->when($forAdmin, $this->seems_ok),
+            'global'                => $this->global,
+            //            'reports'                  => $this->when($forAdmin,
+            //                function () {
+            //                    return ReportBasic::collection($this->reports);
+            //                }
+            //            ),
+            //            'report_parameter_inputs' => $this->when($forAdmin,
+            //                function () {
+            //                    return ReportParameterInputBasic::collection($this->reportParameterInputs);
+            //                }
+            //            ),
         ];
     }
 }

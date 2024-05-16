@@ -36,7 +36,6 @@ use App\Models\DBView;
 use App\Models\PrimeReactTree;
 use App\Models\PrimeReactTreeDb;
 use App\Models\ProcessSQLQueriesBuffer;
-use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
