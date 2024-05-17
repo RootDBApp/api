@@ -44,6 +44,7 @@ class PublicReportController extends PublicApiController
 
         // 2 - check if public access authorized & is visible
         $report = Report::query()
+            ->with('confConnector')
             ->with('parameters')
             ->where('public_access', '=', 1)
             ->where('is_visible', '=', '1')

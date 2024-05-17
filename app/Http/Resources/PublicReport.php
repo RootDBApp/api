@@ -21,6 +21,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\ConfConnector as ConfConnectorResource;
 use App\Http\Resources\PublicReportParameter as ReportParameterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -42,7 +43,7 @@ class PublicReport extends JsonResource
             'has_user_cache'                     => $this->has_user_cache,
             'num_parameter_sets_cached_by_jobs'  => $this->num_parameter_sets_cached_by_jobs,
             'num_parameter_sets_cached_by_users' => $this->num_parameter_sets_cached_by_users,
-
+            'conf_connector'                     => ConfConnectorResource::make($this->confConnector)
         ];
     }
 }
