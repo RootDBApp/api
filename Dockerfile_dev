@@ -1,4 +1,4 @@
-FROM rootdbapp/rootdb-php-fpm:dev
+FROM rootdbapp/rootdb-php-fpm:8.3.7
 
 # Arguments defined in docker-compose.yml
 ARG user_id
@@ -32,8 +32,8 @@ RUN mkdir /var/www/ \
     && chown -R $user:$user /etc/supervisor* \
     && chown -R $user:$user /var/www \
     && chown -R $user:$user /home/$user/.ssh \
-    && touch /var/log/php8.2-fpm.log \
-    && chown $user:$user /var/log/php8.2-fpm.log
+    && touch /var/log/php8.3-fpm.log \
+    && chown $user:$user /var/log/php8.3-fpm.log
 
 WORKDIR /var/www/archives/dev-git/api
 
@@ -43,4 +43,4 @@ ENTRYPOINT [ "docker-entrypoint-dev.sh" ]
 
 EXPOSE 9000
 
-CMD ["php-fpm8.2", "-F"]
+CMD ["php-fpm8.3", "-F"]
