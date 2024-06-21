@@ -85,6 +85,11 @@ class ReportDataView extends JsonResource
             'report_data_view_lib_version_id' => $this->report_data_view_lib_version_id,
             'title'                           => $this->title,
             'type'                            => (int)$this->type,
+            'use_configurator'                => $this->when($loggedUserHasRoleDev,
+                function () {
+                    return $this->use_configurator;
+                }
+            ),
             'updated_at'                      => $this->updated_at,
         ];
     }

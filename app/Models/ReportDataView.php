@@ -49,9 +49,15 @@ use Illuminate\Support\Carbon;
  * @property int $report_data_view_lib_version_id
  * @property int $is_visible
  * @property bool $on_queue
+ * @property int $num_runs
+ * @property int $num_seconds_all_run
+ * @property int $avg_seconds_by_run
+ * @property bool $use_configurator
  * @property-read Report $report
  * @property-read ReportDataViewLibVersion $reportDataViewLibVersion
  * @property-read ReportDataViewJs $reportDataViewJs
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ReportCache> $cacheReports
+ * @property-read int|null $cache_reports_count
  * @method static Builder|ReportDataView newModelQuery()
  * @method static Builder|ReportDataView newQuery()
  * @method static Builder|ReportDataView query()
@@ -69,14 +75,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ReportDataView whereUpdatedAt($value)
  * @method static Builder|ReportDataView wherePosition($value)
  * @method static Builder|ReportDataView whereReportDataViewLibVersionId($value)
- * @property int $num_runs
- * @property int $num_seconds_all_run
- * @property int $avg_seconds_by_run
+ * @method static Builder|Report whereUseConfigurator($value)
  * @method static Builder|Report whereAvgSecondsByRun($value)
  * @method static Builder|Report whereNumRuns($value)
  * @method static Builder|Report whereNumSecondsAllRun($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ReportCache> $cacheReports
- * @property-read int|null $cache_reports_count
  * @method static Builder|ReportDataView whereDescription($value)
  * @method static Builder|ReportDataView whereDescriptionDisplayType($value)
  * @method static Builder|ReportDataView whereName($value)
@@ -109,7 +111,8 @@ class ReportDataView extends ApiModel
         'on_queue',
         'num_runs',
         'num_seconds_all_run',
-        'avg_seconds_by_run'
+        'avg_seconds_by_run',
+        'use_configurator'
     ];
 
     public static array $rules = [
@@ -129,14 +132,16 @@ class ReportDataView extends ApiModel
         'on_queue'                        => 'boolean',
         'num_runs'                        => 'integer',
         'num_seconds_all_run'             => 'integer',
-        'avg_seconds_by_run'              => 'integer'
+        'avg_seconds_by_run'              => 'integer',
+        'use_configurator'                => 'boolean'
     ];
 
     protected $casts = [
         'by_chunk'                 => 'boolean',
         'is_visible'               => 'boolean',
         'on_queue'                 => 'boolean',
-        'description_display_type' => 'string'
+        'description_display_type' => 'string',
+        'use_configurator'         => 'boolean'
     ];
 
     public function cacheReports(): HasMany

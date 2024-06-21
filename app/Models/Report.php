@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 
 /**
  * App\Models\Report
@@ -54,6 +53,14 @@ use Illuminate\Support\Facades\Log;
  * @property boolean $is_visible
  * @property boolean $auto_refresh
  * @property bool $on_queue
+ * @property int $num_runs
+ * @property int $num_seconds_all_run
+ * @property int $avg_seconds_by_run
+ * @property int $has_cache
+ * @property int $has_user_cache
+ * @property int $has_job_cache
+ * @property int|null $num_parameter_sets_cached_by_users
+ * @property int|null $num_parameter_sets_cached_by_jobs
  * @property-read Collection|ReportGroup[] $allowedGroups
  * @property-read int|null $allowed_groups_count
  * @property-read Collection|ReportUser[] $allowedUsers
@@ -69,6 +76,10 @@ use Illuminate\Support\Facades\Log;
  * @property-read int|null $data_views_count
  * @property-read Collection|ReportUserFavorite[] $favoriteUsers
  * @property-read int|null $favorite_users_count
+ * @property-read Collection<int, ReportCache> $reportCaches
+ * @property-read int|null $report_caches_count
+ * @property-read Collection<int, CacheJob> $cacheJobs
+ * @property-read int|null $cache_jobs_count
  * @method static Builder|Report newModelQuery()
  * @method static Builder|Report newQuery()
  * @method static Builder|Report query()
@@ -95,26 +106,14 @@ use Illuminate\Support\Facades\Log;
  * @method static Builder|Report wherePublicSecurityHash($value)
  * @method static Builder|Report whereTitle($value)
  * @method static Builder|Report whereHasDataViews($value)
- * @property int $num_runs
- * @property int $num_seconds_all_run
- * @property int $avg_seconds_by_run
+ * @method static Builder|Report whereNumParameterSetsCachedByJobs($value)
+ * @method static Builder|Report whereNumParameterSetsCachedByUsers($value)
+ * @method static Builder|Report whereHasJobCache($value)
+ * @method static Builder|Report whereHasUserCache($value)
  * @method static Builder|Report whereAvgSecondsByRun($value)
  * @method static Builder|Report whereNumRuns($value)
  * @method static Builder|Report whereNumSecondsAllRun($value)
- * @property int $has_cache
  * @method static Builder|Report whereHasCache($value)
- * @property-read Collection<int, ReportCache> $reportCaches
- * @property-read int|null $report_caches_count
- * @property int $has_user_cache
- * @property int $has_job_cache
- * @method static Builder|Report whereHasJobCache($value)
- * @method static Builder|Report whereHasUserCache($value)
- * @property-read Collection<int, CacheJob> $cacheJobs
- * @property-read int|null $cache_jobs_count
- * @property int|null $num_parameter_sets_cached_by_users
- * @property int|null $num_parameter_sets_cached_by_jobs
- * @method static Builder|Report whereNumParameterSetsCachedByJobs($value)
- * @method static Builder|Report whereNumParameterSetsCachedByUsers($value)
  * @mixin Eloquent
  */
 class Report extends ApiModel
@@ -175,15 +174,15 @@ class Report extends ApiModel
     ];
 
     protected $casts = [
-        'has_parameters' => 'boolean',
-        'has_data_views' => 'boolean',
-        'is_visible'     => 'boolean',
-        'public_access'  => 'boolean',
-        'auto_refresh'   => 'boolean',
-        'on_queue'       => 'boolean',
-        'has_cache'      => 'boolean',
-        'has_job_cache'  => 'boolean',
-        'has_user_cache' => 'boolean'
+        'has_parameters'   => 'boolean',
+        'has_data_views'   => 'boolean',
+        'is_visible'       => 'boolean',
+        'public_access'    => 'boolean',
+        'auto_refresh'     => 'boolean',
+        'on_queue'         => 'boolean',
+        'has_cache'        => 'boolean',
+        'has_job_cache'    => 'boolean',
+        'has_user_cache'   => 'boolean'
     ];
 
     public function allowedGroups(): HasMany
