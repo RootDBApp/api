@@ -133,7 +133,6 @@ class ReportDataViewController extends ApiController
 -- CTRL+ENTER  (CMD+ENTER @mac) - to save and execute the query.
 -- ALT+SHIFT+V                  - toggle editor fullscreen mode. (because ALT+SHIFT+F will toggle Firefox file menu :/ )
 ';
-
         // Handle template files.
         if ($request->exists('report_data_view_lib_type_id') && $request->input('type') === ReportDataView::GRAPH) {
 

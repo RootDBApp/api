@@ -91,12 +91,25 @@ class ReportDataViewJsController extends ApiController
 
                 Log::debug('Chart model', [$reportDataViewLibType->name]);
 
-                $template_files = [
-                    // db column name for ReportDataViewJS
-                    'js_init'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_init.js',
-                    'js_code'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_main.js',
-                    'js_register' => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_register.js',
-                ];
+                // Use a GUI configurator
+                if ((boolean)$request->input('use_configurator') === true) {
+
+                    $template_files = [
+                        // db column name for ReportDataViewJS
+                        'js_init'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_init.js',
+                        'js_code'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_main_configurator.js',
+                        'js_register' => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_register.js',
+                        'json_form'   => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_chartjs_configurator.json',
+                    ];
+                } else {
+                    $template_files = [
+                        // db column name for ReportDataViewJS
+                        'js_init'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_init.js',
+                        'js_code'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_main.js',
+                        'js_register' => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_register.js',
+                    ];
+                }
+
                 try {
                     foreach ($template_files as $column_name => $file_name) {
 

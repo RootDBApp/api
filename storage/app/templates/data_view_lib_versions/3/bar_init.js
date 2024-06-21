@@ -7,6 +7,9 @@ if (chart[DATA_VIEW_JS_ID]) {
     chart[DATA_VIEW_JS_ID].update();
 } else {
 
+    rdb.handleChartJsConfiguratorLabels(chartJsConfigurator);
+    rdb.handleChartJsConfiguratorDatasets(chartJsConfigurator);
+
     chart[DATA_VIEW_JS_ID] = new cjs.Chart(
         refCanvas.current,
         {
