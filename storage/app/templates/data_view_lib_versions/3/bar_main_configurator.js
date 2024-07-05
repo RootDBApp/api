@@ -1,1 +1,0 @@
-const chartJsConfigurator = rdb.initChartJsConfigurator();

@@ -96,9 +96,9 @@ class ReportDataViewJsController extends ApiController
 
                     $template_files = [
                         // db column name for ReportDataViewJS
-                        'js_init'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_init_configurator.js',
-                        'js_code'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_main_configurator.js',
-                        'js_register' => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_register.js',
+                        //'js_init'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_init_configurator.js',
+                        //'js_code'     => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_main_configurator.js',
+                        //'js_register' => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_register.js',
                         'json_form'   => 'templates/data_view_lib_versions/' . $request->get('report_data_view_lib_version_id') . '/' . $reportDataViewLibType->label . '_chartjs_configurator.json',
                     ];
                 } else {
