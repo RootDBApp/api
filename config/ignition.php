@@ -91,8 +91,8 @@ return [
     | Solution Providers
     |--------------------------------------------------------------------------
     |
-    | List of solution providers that should be loaded. You may specify additional
-    | providers as fully qualified class names.
+    | List of solution providers that should be loaded. You may specify additional 
+    | providers as fully qualified class names. 
     |
     */
 
