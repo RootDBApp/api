@@ -11,7 +11,21 @@
     },
     "datasetValues" : {
       "columnName" : "dataset_value",
-      "dataType" : "number"
+      "columnNames" : [
+        {
+          "columnName" : "dataset_value_x",
+          "dataType" : "string"
+        },
+        {
+          "columnName" : "dataset_value_y",
+          "dataType" : "string"
+        },
+        {
+          "columnName" : "dataset_value_r",
+          "dataType" : "number"
+        }
+      ],
+      "dataType" : "object"
     }
   },
   "chartJsSetup" : {
