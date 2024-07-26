@@ -2,7 +2,7 @@
   "initialSetupDone" : false,
   "columnSetup" : {
     "labels" : {
-      "columnName" : "x_label",
+      "columnName" : "label",
       "dataType" : "string"
     },
     "datasetNames" : {
