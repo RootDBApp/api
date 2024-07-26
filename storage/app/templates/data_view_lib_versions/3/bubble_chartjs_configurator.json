@@ -11,18 +11,18 @@
     },
     "datasetValues" : {
       "columnName" : "dataset_value",
-      "objectMember2columnNames" : [
+      "columnNames" : [
         {
-          "objectMember" : "x",
-          "columnName" : "dataset_value_x"
+          "columnName" : "dataset_value_x",
+          "objectMember" : "x"
         },
         {
-          "objectMember" : "y",
-          "columnName" : "dataset_value_y"
+          "columnName" : "dataset_value_y",
+          "objectMember" : "y"
         },
         {
-          "objectMember" : "r",
-          "columnName" : "dataset_value_r"
+          "columnName" : "dataset_value_r",
+          "objectMember" : "r"
         }
       ],
       "dataType" : "object"
