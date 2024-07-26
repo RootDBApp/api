@@ -29,7 +29,7 @@
     }
   },
   "chartJsSetup" : {
-    "type" : "bar",
+    "type" : "bubble",
     "config" : {
       "data" : {
         "labels" : [],
