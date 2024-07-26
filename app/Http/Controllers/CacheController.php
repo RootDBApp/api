@@ -101,7 +101,7 @@ class CacheController extends ApiController
             ),
 
             'reportDataViewLibTypes' => ReportDataViewLibTypesResource::collection(
-                (new ReportDataViewLibTypes())->paginate(2000)
+                (new ReportDataViewLibTypes())->orderBy('name')->paginate(2000)
             ),
 
             'roles' => RoleResource::collection(Role::all()),

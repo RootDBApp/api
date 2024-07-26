@@ -29,6 +29,6 @@ class ReportDataViewLibTypesController extends ApiController
 {
     public function index(): AnonymousResourceCollection
     {
-        return ReportDataViewLibTypesResource::collection((new ReportDataViewLibTypes)->paginate(2000));
+        return ReportDataViewLibTypesResource::collection((new ReportDataViewLibTypes)->orderBy('name')->paginate(2000));
     }
 }

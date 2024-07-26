@@ -1,1 +1,81 @@
-{"initialSetupDone":false,"columnSetup":{"labels":{"columnName":"x_label"},"datasetNames":{"columnName":"dataset_name"},"datasetValues":{"columnName":"dataset_value"}},"chartJsSetup":{"type": "bar","config":{"data":{"labels":["x label 1","x label 2","x label 3","x label 4","x label 5","x label 6"],"datasets":[{"label":"Dataset 1","data":["10","5","8","2","3","4"],"backgroundColor":["#58595b","#4dc9f6","#f67019","#f53794","#537bc4","#acc236","#166a8f","#00a950","#8549ba"]}]},"options":{"maintainAspectRatio":false,"plugins":{"legend":{"labels":{"color":""}}},"scales":{"x":{"ticks":{"color":"00000"},"grid":{"color":""}},"y":{"ticks":{"color":"00000"},"grid":{"color":"00000"}}}}}}}
+{
+  "initialSetupDone": false,
+  "columnSetup": {
+    "labels": {
+      "columnName": "x_label"
+    },
+    "datasetNames": {
+      "columnName": "dataset_name"
+    },
+    "datasetValues": {
+      "columnName": "dataset_value"
+    }
+  },
+  "chartJsSetup": {
+    "type": "bar",
+    "config": {
+      "data": {
+        "labels": [
+          "x label 1",
+          "x label 2",
+          "x label 3",
+          "x label 4",
+          "x label 5",
+          "x label 6"
+        ],
+        "datasets": [
+          {
+            "label": "Dataset 1",
+            "data": [
+              "10",
+              "5",
+              "8",
+              "2",
+              "3",
+              "4"
+            ],
+            "backgroundColor": [
+              "#58595b",
+              "#4dc9f6",
+              "#f67019",
+              "#f53794",
+              "#537bc4",
+              "#acc236",
+              "#166a8f",
+              "#00a950",
+              "#8549ba"
+            ]
+          }
+        ]
+      },
+      "options": {
+        "maintainAspectRatio": false,
+        "plugins": {
+          "legend": {
+            "labels": {
+              "color": ""
+            }
+          }
+        },
+        "scales": {
+          "x": {
+            "ticks": {
+              "color": "00000"
+            },
+            "grid": {
+              "color": ""
+            }
+          },
+          "y": {
+            "ticks": {
+              "color": "00000"
+            },
+            "grid": {
+              "color": "00000"
+            }
+          }
+        }
+      }
+    }
+  }
+}
