@@ -1,4 +1,4 @@
-// @url https://echarts.apache.org/examples/en/index.html#chart-type-bar
+// @urlhttps://echarts.apache.org/examples/en/index.html#chart-type-scatter
 //
 // Results from database are available in the `jsonResults` array variable.
 // RootDB helpers are availble with prefix `rdb.*`
@@ -10,20 +10,17 @@
 
 const labels = jsonResults.map(row => row.x_label);
 
-const series = [
-    {
-        type: 'bar',
-        data: jsonResults.map((row) => row.dataset_value),
-    }
-];
-
 const option = {
     xAxis: {
-        type: 'category',
         data: labels
     },
-    yAxis: {
-        type: 'value'
-    },
-    series: series
+    yAxis: {},
+    series: [
+        {
+            type: 'candlestick',
+            data: jsonResults.map((row) => {
+                return [row.x1_value, row.x2_value, row.y1_value, row.y2_value];
+            }),
+        }
+    ]
 };

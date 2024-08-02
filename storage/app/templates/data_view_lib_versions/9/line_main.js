@@ -1,4 +1,4 @@
-// @url https://echarts.apache.org/examples/en/index.html#chart-type-bar
+// @url https://echarts.apache.org/examples/en/index.html#chart-type-line
 //
 // Results from database are available in the `jsonResults` array variable.
 // RootDB helpers are availble with prefix `rdb.*`
@@ -12,7 +12,7 @@ const labels = jsonResults.map(row => row.x_label);
 
 const series = [
     {
-        type: 'bar',
+        type: 'line',
         data: jsonResults.map((row) => row.dataset_value),
     }
 ];
