@@ -25,5 +25,11 @@ const option = {
     yAxis: {
         type: 'value'
     },
+    grid: {
+        left: '5%',
+        right: '5%',
+        top: '5%',
+        bottom: '5%'
+    },
     series: series
 };

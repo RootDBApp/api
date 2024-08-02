@@ -51,7 +51,7 @@ const series = [
     }
 ];
 
-option = {
+const option = {
     title: {
         text: 'Basic Radar Chart'
     },

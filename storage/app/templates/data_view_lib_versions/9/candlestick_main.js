@@ -15,6 +15,12 @@ const option = {
         data: labels
     },
     yAxis: {},
+    grid: {
+        left: '5%',
+        right: '5%',
+        top: '5%',
+        bottom: '5%'
+    },
     series: [
         {
             type: 'candlestick',

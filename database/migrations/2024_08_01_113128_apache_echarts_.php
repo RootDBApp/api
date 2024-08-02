@@ -26,11 +26,13 @@ return new class extends Migration {
     {
         DB::statement("INSERT INTO `rootdb-api`.report_data_view_libs (id,type,name,url_website,`default`) VALUES (8,2,'Apache ECharts','https://echarts.apache.org',0);");
         DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_versions (id,report_data_view_lib_id,major_version,version,url_documentation) VALUES (9,8,'5.x', '5.5.1', 'https://echarts.apache.org/handbook/en/get-started/');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (report_data_view_lib_version_id,label,name) VALUES (9,'bar', 'Bar');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (report_data_view_lib_version_id,label,name) VALUES (9,'line', 'Line');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (report_data_view_lib_version_id,label,name) VALUES (9,'scatter', 'Scatter');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (report_data_view_lib_version_id,label,name) VALUES (9,'pie', 'Pie');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (report_data_view_lib_version_id,label,name) VALUES (9,'candlestick', 'Candlestick');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (report_data_view_lib_version_id,label,name) VALUES (9,'radar', 'Radar');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (32, 9,'bar', 'Bar');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (33, 9,'line', 'Line');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (34, 9,'scatter', 'Scatter');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (35, 9,'pie', 'Pie');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (36, 9,'candlestick', 'Candlestick');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (37, 9,'radar', 'Radar');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (38, 9,'default', 'Default');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (39, 9,'stacked_lines', 'Stacked lines');");
     }
 };
