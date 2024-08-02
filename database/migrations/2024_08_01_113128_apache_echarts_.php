@@ -33,6 +33,6 @@ return new class extends Migration {
         DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (36, 9,'candlestick', 'Candlestick');");
         DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (37, 9,'radar', 'Radar');");
         DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (38, 9,'default', 'Default');");
-        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (39, 9,'stacked_lines', 'Stacked lines');");
+        DB::statement("INSERT INTO `rootdb-api`.report_data_view_lib_types (id,report_data_view_lib_version_id,label,name) VALUES (39, 9,'stacked_line', 'Stacked line');");
     }
 };
