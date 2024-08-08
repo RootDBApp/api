@@ -2,7 +2,7 @@
 
 return [
     'demo'                    => env('APP_DEMO', false),
-    'version'                 => env('APP_VERSION', '1.1.2'),
+    'version'                 => env('APP_VERSION', '1.1.3'),
     'name'                    => env('APP_NAME', 'RootDB'),
     'env'                     => env('APP_ENV', 'production'),
     'role_seeder_mode'        => env('APP_ROLES_SEEDER_MODE', 'default'),
