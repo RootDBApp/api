@@ -130,5 +130,5 @@ logInfo
 logInfo "------------------------------------------"
 logInfo "Git - add, commit, push both seed files..."
 logInfo "------------------------------------------"
-git add -f "${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}" -f "${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}" && git commit -m "[auto] update production/${prod_seeder_init_dump_file} & local/${dev_seeder_init_dump_file} "
-git pull && git push origin master
+git add -f "${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}" -f "${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}" && git commit -m "#5 [auto] update production/${prod_seeder_init_dump_file} & local/${dev_seeder_init_dump_file} "
+git pull && git push origin main
