@@ -92,13 +92,13 @@ logInfo "Wipe database...\" in .env file"
 dockerExec php artisan db:wipe -n --force
 
 logInfo "Seed database..."
-mysql -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" <"${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}"
+mariadb -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" <"${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}"
 
 logInfo "Execute migrations..."
 dockerExec php artisan migrate -n --force
 
 logInfo "Dumping schema database into \"${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}\" file..."
-mysqldump -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" --ignore-table=rootdb-api.telescope_entries --ignore-table=rootdb-api.telescope_entries_tags --ignore-table=rootdb-api.telescope_monitoring >"${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}"
+mariadb-dump -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" --ignore-table=rootdb-api.telescope_entries --ignore-table=rootdb-api.telescope_entries_tags --ignore-table=rootdb-api.telescope_monitoring >"${prod_seeder_init_dump_directory}${prod_seeder_init_dump_file}"
 
 logInfo
 logInfo
@@ -113,17 +113,17 @@ logInfo "Wipe database...\" in .env file"
 dockerExec php artisan db:wipe -n --force
 
 logInfo "Seed database..."
-mysql -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" <"${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}"
+mariadb -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" <"${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}"
 
 logInfo "Execute migrations..."
 dockerExec php artisan migrate -n --force
 
 logInfo "Dumping schema database into \"${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}\" file..."
-mysql -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE telescope_entries; SET SESSION foreign_key_checks=ON; "
-mysql -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE telescope_entries_tags; SET SESSION foreign_key_checks=ON; "
-mysql -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE telescope_monitoring; SET SESSION foreign_key_checks=ON; "
-mysql -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE websockets_statistics_entries; SET SESSION foreign_key_checks=ON; "
-mysqldump -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" >"${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}"
+mariadb -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE telescope_entries; SET SESSION foreign_key_checks=ON; "
+mariadb -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE telescope_entries_tags; SET SESSION foreign_key_checks=ON; "
+mariadb -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE telescope_monitoring; SET SESSION foreign_key_checks=ON; "
+mariadb -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" -e "SET SESSION foreign_key_checks=OFF; TRUNCATE websockets_statistics_entries; SET SESSION foreign_key_checks=ON; "
+mariadb-dump -u "${db_user}" -p"${db_password}" -h "${rootdb_db_api_ip}" "rootdb-api" >"${dev_seeder_init_dump_directory}${dev_seeder_init_dump_file}"
 
 logInfo
 logInfo
