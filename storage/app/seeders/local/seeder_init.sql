@@ -440,7 +440,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -525,7 +525,8 @@ INSERT INTO `migrations` VALUES
 (79,'2023_10_26_114241_update_report_caches',17),
 (80,'2024_02_09_094710_update_reports',18),
 (81,'2024_03_07_085853_update_report_data_view_lib_versions',19),
-(82,'2024_08_01_113128_apache_echarts_',20);
+(82,'2024_08_01_113128_apache_echarts_',20),
+(83,'2024_08_08_074929_update_report_data_view_lib_versions',21);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -853,7 +854,7 @@ LOCK TABLES `report_data_view_lib_versions` WRITE;
 /*!40000 ALTER TABLE `report_data_view_lib_versions` DISABLE KEYS */;
 INSERT INTO `report_data_view_lib_versions` VALUES
 (1,1,'8.x','8.13.2','https://react-table.tanstack.com/docs/overview',1),
-(3,2,'4.x','4.4.2','https://www.chartjs.org/docs/master/',0),
+(3,2,'4.x','4.4.3','https://www.chartjs.org/docs/master/',0),
 (4,3,'7.x','7.8.5','https://github.com/d3/d3/wiki',0),
 (5,4,'1.x','1.0.4','https://documentation.rootdb.fr',0),
 (6,5,'1.x','1.0.4','https://documentation.rootdb.fr',0),
@@ -1538,4 +1539,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-08  9:48:29
+-- Dump completed on 2024-08-08  9:52:40
