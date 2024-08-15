@@ -138,7 +138,7 @@ class CacheJobController extends ApiController
 
         $this->updateParameterSetConfigs($request, $cacheJob->id);
 
-        return $this->successResponse(new CacheJobResource($cacheJob), 'The cache job has been updated.');
+        return $this->successResponse(new CacheJobResource($cacheJob), 'The cache job has been created successfully.');
     }
 
     public function update(Request $request, CacheJob $cacheJob): JsonResponse

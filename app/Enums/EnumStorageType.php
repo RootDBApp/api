@@ -19,26 +19,11 @@
  * PORQUET Sébastien <sebastien.porquet@ijaz.fr>
  */
 
-namespace App\Providers;
+namespace App\Enums;
 
-use App\Models\Asset;
-use App\Models\ServiceMessage;
-use App\Models\ServiceMessageRole;
-use App\Policies\AssetPolicy;
-use App\Policies\ServiceMessagePolicy;
-use App\Policies\ServiceMessageRolePolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
-class AuthServiceProvider extends ServiceProvider
+enum EnumStorageType: string
 {
-    protected $policies = [
-        ServiceMessage::class     => ServiceMessagePolicy::class,
-        ServiceMessageRole::class => ServiceMessageRolePolicy::class,
-        Asset::class              => AssetPolicy::class,
-    ];
-
-    public function boot()
-    {
-        $this->registerPolicies();
-    }
+    case DATABASE = 'database';
+    case FILESYSTEM = 'filesystem';
+    case ONLINE = 'online';
 }

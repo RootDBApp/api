@@ -67,6 +67,8 @@ Route::get('test-web-socket-server', 'App\Http\Controllers\ApiController@testWeb
     ->name('api.test-web-socket-server')
     ->middleware(['auth:sanctum']);
 
+Route::apiResource('asset', App\Http\Controllers\AssetController::class)->middleware('auth:sanctum');
+
 Route::get('cache', 'App\Http\Controllers\CacheController@index')
     ->name('cache')
     ->middleware(['auth:sanctum']);

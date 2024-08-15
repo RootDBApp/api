@@ -19,26 +19,13 @@
  * PORQUET Sébastien <sebastien.porquet@ijaz.fr>
  */
 
-namespace App\Providers;
+namespace App\Policies;
 
 use App\Models\Asset;
-use App\Models\ServiceMessage;
-use App\Models\ServiceMessageRole;
-use App\Policies\AssetPolicy;
-use App\Policies\ServiceMessagePolicy;
-use App\Policies\ServiceMessageRolePolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AuthServiceProvider extends ServiceProvider
+class AssetPolicy extends CommonPolicy
 {
-    protected $policies = [
-        ServiceMessage::class     => ServiceMessagePolicy::class,
-        ServiceMessageRole::class => ServiceMessageRolePolicy::class,
-        Asset::class              => AssetPolicy::class,
-    ];
-
-    public function boot()
-    {
-        $this->registerPolicies();
-    }
+    use HandlesAuthorization;
 }
