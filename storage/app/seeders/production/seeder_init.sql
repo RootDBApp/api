@@ -1,4 +1,3 @@
-/*!999999\- enable the sandbox mode */ 
 -- MariaDB dump 10.19  Distrib 10.11.8-MariaDB, for Linux (x86_64)
 --
 -- Host: 172.20.0.50    Database: rootdb-api

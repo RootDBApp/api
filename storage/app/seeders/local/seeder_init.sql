@@ -1,4 +1,3 @@
-/*!999999\- enable the sandbox mode */ 
 -- MariaDB dump 10.19  Distrib 10.11.8-MariaDB, for Linux (x86_64)
 --
 -- Host: 172.20.0.50    Database: rootdb-api
@@ -582,8 +581,7 @@ CREATE TABLE `organization_user` (
 
 LOCK TABLES `organization_user` WRITE;
 /*!40000 ALTER TABLE `organization_user` DISABLE KEYS */;
-INSERT INTO `organization_user` VALUES
-(1,1,1);
+INSERT INTO `organization_user` (`id`, `organization_id`, `user_id`) VALUES (1,1,1),(27,1,14),(28,1,15),(29,1,16),(30,1,17);
 /*!40000 ALTER TABLE `organization_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -642,10 +640,7 @@ CREATE TABLE `organization_user_role` (
 
 LOCK TABLES `organization_user_role` WRITE;
 /*!40000 ALTER TABLE `organization_user_role` DISABLE KEYS */;
-INSERT INTO `organization_user_role` VALUES
-(83,1,1),
-(84,1,2),
-(85,1,3);
+INSERT INTO `organization_user_role` (`id`, `organization_user_id`, `role_id`) VALUES (83,1,1),(84,1,2),(85,1,3),(87,27,1),(86,27,2),(88,28,3),(89,29,1),(90,30,2);
 /*!40000 ALTER TABLE `organization_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1459,8 +1454,7 @@ CREATE TABLE `user_preferences` (
 
 LOCK TABLES `user_preferences` WRITE;
 /*!40000 ALTER TABLE `user_preferences` DISABLE KEYS */;
-INSERT INTO `user_preferences` VALUES
-(53,1,'fr','saga-blue');
+INSERT INTO `user_preferences` (`id`, `organization_user_id`, `lang`, `theme`) VALUES (53,1,'en','saga-blue'),(54,27,'en','saga-blue'),(55,28,'en','saga-blue'),(56,29,'en','saga-blue'),(57,30,'en','saga-blue');
 /*!40000 ALTER TABLE `user_preferences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1497,8 +1491,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES
-(1,'super-admin','super-admin@domain','2022-07-21 10:48:45','super-admin','super-admin','$2y$10$3sdY0U20n45LHMazwcJmhuNu4C6c8AXWaHYmNzzkOzy6drBOP5fhi',1,1,1,0,NULL,'2022-07-21 10:48:45',NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `lastname`, `firstname`, `password`, `is_super_admin`, `is_active`, `reset_password`, `first_connection`, `remember_token`, `created_at`, `updated_at`) VALUES (1,'super-admin','super-admin@domain','2022-07-21 10:48:45','super-admin','super-admin','$2y$10$62NvTTEWvNbIs3rt1ExOqulhl7aug8WbxiSOBBzCx32R5t2TytQQu',1,1,0,0,NULL,'2022-07-21 10:48:45','2024-03-21 09:55:24'),(14,'admindev_user','admindev_user@rootdb.fr',NULL,'Admin Dev','User','$2y$10$StcbZQPichEG8mA86tT40.EidQLqcoT2HWr9pcOgWimxGfuLuMJ06',0,1,0,0,NULL,'2024-03-21 09:59:43','2024-03-21 10:05:48'),(15,'viewer_user','viewer_user@rootdb.fr',NULL,'Viewer','User','$2y$10$sKmzdZ2xOAdykBW7C6u.tuYy3Y1CbC/qw4rZ6/p0M97yl.CMwuF9W',0,1,0,1,NULL,'2024-03-21 10:00:12','2024-03-21 10:03:18'),(16,'admin_user','admin_user@rootdb.fr',NULL,'Admin','User','$2y$10$V/BWYUGzz4EJRJQBblC4We0M9AMnWmLucwt/5fc1bSa5RY3vG1iC2',0,1,0,1,NULL,'2024-03-21 10:00:49','2024-03-21 10:03:07'),(17,'dev_user','dev_user@rootdb.fr',NULL,'Dev','User','$2y$10$Q4eoWNZLAAHTFHofGhdLJ.Z.zv4BPKpMOvdXV67eRTjRy6xSgwJ5C',0,1,0,1,NULL,'2024-03-21 10:01:09','2024-03-21 10:03:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
