@@ -115,6 +115,11 @@ class ConfConnectorController extends ApiController
     {
         $this->genericAuthorize($request, $confConnector, true, 'index');
 
+        if ($confConnector->name === 'all connectors') {
+
+            return json_encode([]);
+        }
+
         $connectorInstance = $connectorService->getInstance($confConnector);
         $wordsCollection = $connectorInstance->getAutoComplete();
 
