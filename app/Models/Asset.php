@@ -21,6 +21,7 @@
 
 namespace App\Models;
 
+use App\Enums\EnumStorageDataType;
 use App\Enums\EnumStorageType;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,11 +30,11 @@ use Illuminate\Validation\Rules\Enum;
 
 /**
  *
- *
  * @property int $id
  * @property string $name
  * @property EnumStorageType $storage_type
- * @property string|null $data When storage type = database
+ * @property string|null $data_content When storage type = database
+ * @property EnumStorageDataType|null $data_type When storage type = database
  * @property int $organization_id
  * @property string|null $pathname When storage type = filesystem
  * @property string|null $url When storage type = online
@@ -44,6 +45,7 @@ use Illuminate\Validation\Rules\Enum;
  * @method static Builder|Asset query()
  * @method static Builder|Asset whereCreatedAt($value)
  * @method static Builder|Asset whereData($value)
+ * @method static Builder|Asset whereDataType($value)
  * @method static Builder|Asset whereId($value)
  * @method static Builder|Asset whereName($value)
  * @method static Builder|Asset whereOrganizationId($value)
@@ -63,7 +65,8 @@ class Asset extends ApiModel
         'storage_type',
         'pathname',
         'url',
-        'data'
+        'data_content',
+        'data_type',
     ];
 
     public static function rules(): array
@@ -72,10 +75,12 @@ class Asset extends ApiModel
             'name'            => 'required|between:2,255',
             'organization_id' => 'integer|exists:organizations,id',
             'storage_type'    => [new Enum(EnumStorageType::class)],
+            'data_type'       => [new Enum(EnumStorageDataType::class)],
         ];
     }
 
     protected $casts = [
         'storage_type' => EnumStorageType::class,
+        'data_type'    => EnumStorageDataType::class,
     ];
 }

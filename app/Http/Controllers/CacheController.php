@@ -25,6 +25,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Asset as AssetResource;
 use App\Http\Resources\Category as CategoryResource;
 use App\Http\Resources\Directory as DirectoryResource;
 use App\Http\Resources\PrimeReactTree as PrimeReactTreeResource;
@@ -33,6 +34,7 @@ use App\Http\Resources\ReportDataViewLibTypes as ReportDataViewLibTypesResource;
 use App\Http\Resources\ReportParameterInput as ReportParameterInputResource;
 use App\Http\Resources\Role as RoleResource;
 use App\Http\Resources\ServiceMessage as ServiceMessageResource;
+use App\Models\Asset;
 use App\Models\Cache;
 use App\Models\Category;
 use App\Models\Directory;
@@ -64,6 +66,12 @@ class CacheController extends ApiController
         );
 
         $collections = [
+            'assets' => AssetResource::collection(
+                (new Asset())
+                    ->where('organization_id', '=', auth()->user()->currentOrganizationLoggedUser->organization_id)
+                    ->paginate(2000)
+            ),
+
             'directories' => DirectoryResource::collection(
                 (new Directory())
                     ->where('organization_id', '=', auth()->user()->currentOrganizationLoggedUser->organization_id)

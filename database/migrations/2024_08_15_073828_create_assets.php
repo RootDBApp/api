@@ -35,6 +35,7 @@ return new class extends Migration {
 
             $table->enum('storage_type', ['database', 'filesystem', 'online'])->default('database')->nullable(false);
             $table->binary('data')->nullable(true)->comment('When storage type = database');
+            $table->enum('data_type', ['file', 'string'])->nullable(true)->default('string')->comment('When storage type = database');
             $table->text('pathname')->nullable(true)->comment('When storage type = filesystem');
             $table->text('url')->nullable(true)->comment('When storage type = online');
             $table->timestamps();

@@ -21,6 +21,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EnumStorageDataType;
 use App\Enums\EnumStorageType;
 use App\Http\Resources\Asset as AssetResource;
 use App\Models\Asset;
@@ -113,13 +114,14 @@ class AssetController extends ApiController
 
             case EnumStorageType::DATABASE:
             {
-                if (!$request->hasFile('data_file')) {
+                if (EnumStorageDataType::from($request->get('data_type')) === EnumStorageDataType::STRING) {
 
                     $validator->addRules(
                         [
-                            'data' => 'required',
+                            'data_content' => 'required',
                         ]);
                 }
+
                 break;
             }
 

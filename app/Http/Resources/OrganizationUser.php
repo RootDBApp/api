@@ -59,9 +59,7 @@ class OrganizationUser extends JsonResource
             'group_ids' => $this->when(
                 (int)$request->get('groups') === 1,
                 function () {
-                    return $this->groups->map(function (\App\Models\Group $group, $key) {
-                        return $group->id;
-                    });
+                    return $this->groups->map(fn(\App\Models\Group $group, $key) => $group->id);
                 }
             ),
 
@@ -81,11 +79,7 @@ class OrganizationUser extends JsonResource
 
             'role_ids' => $this->when(
                 (int)$request->get('roles') === 1,
-                function () {
-                    return $this->roles->map(function (\App\Models\Role $role, $key) {
-                        return $role->id;
-                    });
-                }
+                fn() => $this->roles->map(fn(\App\Models\Role $role, $key) => $role->id)
             ),
 
             'ui_grants' => $this->when(
