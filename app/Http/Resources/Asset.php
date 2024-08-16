@@ -38,6 +38,7 @@ class Asset extends JsonResource
             'id'           => $this->id,
             'name'         => $this->name,
             'storage_type' => $this->storage_type,
+            'organization_id' => $this->organization_id,
             'data_content'         => $this->when($request->get('complete_resource'),
                 function () {
                     return $this->data_content;
