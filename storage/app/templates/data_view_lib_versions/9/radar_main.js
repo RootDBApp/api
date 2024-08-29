@@ -51,7 +51,7 @@ const series = [
     }
 ];
 
-const option = {
+chart[DATA_VIEW_JS_ID].setOption({
     title: {
         text: 'Basic Radar Chart'
     },
@@ -70,4 +70,4 @@ const option = {
         ]
     },
     series: series
-};
+});

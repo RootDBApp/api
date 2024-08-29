@@ -17,7 +17,7 @@ const series = [
     }
 ];
 
-const option = {
+chart[DATA_VIEW_JS_ID].setOption({
     xAxis: {
         type: 'category',
         data: dataset_names
@@ -26,4 +26,4 @@ const option = {
         type: 'value'
     },
     series: series
-};
+});

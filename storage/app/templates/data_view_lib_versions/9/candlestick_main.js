@@ -10,7 +10,7 @@
 
 const labels = jsonResults.map(row => row.x_label);
 
-const option = {
+chart[DATA_VIEW_JS_ID].setOption({
     xAxis: {
         data: labels
     },
@@ -29,4 +29,4 @@ const option = {
             }),
         }
     ]
-};
+});

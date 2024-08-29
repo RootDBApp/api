@@ -17,7 +17,7 @@ const series = [
     }
 ];
 
-const option = {
+chart[DATA_VIEW_JS_ID].setOption({
     xAxis: {},
     yAxis: {},
     grid: {
@@ -27,4 +27,4 @@ const option = {
         bottom: '5%'
     },
     series: series
-};
+});

@@ -129,17 +129,17 @@ class ProcessReportJob implements ShouldQueue
             ReportRunEnd::dispatch($this->execReportInfo, $this->report, $ms_elapsed);
         }
 
-        $num_seconds_all_run = $this->report->num_seconds_all_run + $ms_elapsed;
-
-        if (!$this->execReportInfo->reportCacheInfo->cached) {
-
-            $this->report->update(
-                [
-                    'num_runs'            => ($this->report->num_runs + 1),
-                    'num_seconds_all_run' => $num_seconds_all_run,
-                    'avg_seconds_by_run'  => $num_seconds_all_run / ($this->report->num_runs + 1),
-                ]
-            );
-        }
+//        $num_seconds_all_run = $this->report->num_seconds_all_run + $ms_elapsed;
+//
+//        if (!$this->execReportInfo->reportCacheInfo->cached) {
+//
+//            $this->report->update(
+//                [
+//                    'num_runs'            => ($this->report->num_runs + 1),
+//                    'num_seconds_all_run' => $num_seconds_all_run,
+//                    'avg_seconds_by_run'  => $num_seconds_all_run / ($this->report->num_runs + 1),
+//                ]
+//            );
+//        }
     }
 }

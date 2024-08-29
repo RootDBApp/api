@@ -39,7 +39,7 @@ const series = [
     }
 ];
 
-const option = {
+chart[DATA_VIEW_JS_ID].setOption({
     tooltip: {
         trigger: 'item'
     },
@@ -48,4 +48,4 @@ const option = {
         left: 'center'
     },
     series: series
-};
+});
