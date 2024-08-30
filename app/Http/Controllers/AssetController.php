@@ -117,11 +117,14 @@ class AssetController extends ApiController
     {
         if ($asset->storage_type === EnumStorageType::FILESYSTEM) {
 
-            $asset_path = $request->file('image')->storeAs(
-                'assets', $asset->id
-            );
+            $asset_path = $request->file('asset_file')->storeAs(
+                'assets', $asset->id . '_' . $request->file('asset_file')->getClientOriginalName()
+        );
             $asset->update(['pathname' => $asset_path]);
         }
+
+        // To get all data.
+        $request->request->add(['complete_resource' => 1,]);
 
         return $this->successResponse(new AssetResource($asset), 'The asset has been uploaded successfully.');
     }
