@@ -68,6 +68,9 @@ Route::get('test-web-socket-server', 'App\Http\Controllers\ApiController@testWeb
     ->middleware(['auth:sanctum']);
 
 Route::apiResource('asset', App\Http\Controllers\AssetController::class)->middleware('auth:sanctum');
+Route::post('asset/{asset}/upload', 'App\Http\Controllers\AssetController@upload')
+    ->name('asset-upload')
+    ->middleware(['auth:sanctum']);
 
 Route::get('cache', 'App\Http\Controllers\CacheController@index')
     ->name('cache')

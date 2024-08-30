@@ -21,7 +21,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\EnumStorageDataType;
+use App\Enums\EnumAssetSource;
 use App\Enums\EnumStorageType;
 use App\Events\APICacheAssetsUpdated;
 use App\Http\Resources\Asset as AssetResource;
@@ -30,57 +30,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\MessageBag;
 use Validator;
 
 class AssetController extends ApiController
 {
-    public function checks(Request $request): MessageBag|bool
-    {
-        // First basic check.
-        $validator = Validator::make(
-            $request->all(),
-            Asset::rules(),
-            Asset::$rule_messages
-        );
-
-        if ($validator->fails()) {
-
-            $validator->errors();
-        }
-
-        // Checks depending on asset storage type.
-        switch (EnumStorageType::from($request->get('storage_type'))) {
-
-            case EnumStorageType::DATABASE:
-            {
-                if (EnumStorageDataType::from($request->get('data_type')) === EnumStorageDataType::STRING) {
-
-                    $validator->addRules(
-                        [
-                            'data_content' => 'required',
-                        ]);
-                }
-
-                break;
-            }
-
-            case EnumStorageType::FILESYSTEM:
-            case EnumStorageType::ONLINE:
-            default:
-            {
-                return new MessageBag(['Unable to recognize asset\'s storage type.']);
-            }
-        }
-
-        if ($validator->fails()) {
-
-            return $validator->errors();
-        }
-
-        return true;
-    }
-
     public function destroy(Request $request, Asset $asset): JsonResponse
     {
         $this->genericAuthorize($request, $asset);
@@ -156,5 +111,72 @@ class AssetController extends ApiController
         $request->request->add(['complete_resource' => 1,]);
 
         return $this->successResponse(new AssetResource($asset), 'The asset has been updated successfully.');
+    }
+
+    public function upload(Request $request, Asset $asset): JsonResponse
+    {
+        if ($asset->storage_type === EnumStorageType::FILESYSTEM) {
+
+            $asset_path = $request->file('image')->storeAs(
+                'assets', $asset->id
+            );
+            $asset->update(['pathname' => $asset_path]);
+        }
+
+        return $this->successResponse(new AssetResource($asset), 'The asset has been uploaded successfully.');
+    }
+
+    private function checks(Request $request): MessageBag|bool
+    {
+        // First basic check.
+        $validator = Validator::make(
+            $request->all(),
+            Asset::rules(),
+            Asset::$rule_messages
+        );
+
+        if ($validator->fails()) {
+
+            return $validator->errors();
+        }
+
+        // Checks depending on asset storage type.
+        switch (EnumStorageType::from($request->get('storage_type'))) {
+
+            case EnumStorageType::DATABASE:
+            {
+                if ($request->get('asset_source') === EnumAssetSource::STRING) {
+
+                    $validator->addRules(
+                        [
+                            'data_content' => 'required',
+                        ]);
+                } else if ($request->get('asset_source') === EnumAssetSource::FILE && (int)$request->get('id') > 0) {
+                    $this->handleUpload($request);
+                }
+
+                break;
+            }
+
+            case EnumStorageType::FILESYSTEM:
+                // Handle upload.
+                if ((int)$request->get('id') > 0) {
+                    $this->handleUpload($request);
+                }
+
+                break;
+            case EnumStorageType::ONLINE:
+            default:
+            {
+                return new MessageBag(['Unable to recognize asset\'s storage type.']);
+            }
+        }
+
+        if ($validator->fails()) {
+
+            return $validator->errors();
+        }
+
+        return true;
     }
 }

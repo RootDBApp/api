@@ -44,11 +44,6 @@ class Asset extends JsonResource
                     return $this->data_content;
                 }
             ),
-            'data_type'    => $this->when($request->get('complete_resource'),
-                function () {
-                    return $this->data_type;
-                }
-            ),
             'pathname'     => $this->when($request->get('complete_resource'),
                 function () {
                     return $this->pathname;

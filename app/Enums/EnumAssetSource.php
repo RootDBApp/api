@@ -21,7 +21,7 @@
 
 namespace App\Enums;
 
-enum EnumStorageDataType: string
+enum EnumAssetSource: string
 {
     case FILE = 'file';
     case STRING = 'string';
