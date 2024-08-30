@@ -23,78 +23,18 @@ namespace App\Http\Controllers;
 
 use App\Enums\EnumStorageDataType;
 use App\Enums\EnumStorageType;
+use App\Events\APICacheAssetsUpdated;
 use App\Http\Resources\Asset as AssetResource;
 use App\Models\Asset;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\MessageBag;
 use Validator;
 
 class AssetController extends ApiController
 {
-    public function index(Request $request): AnonymousResourceCollection
-    {
-        $this->genericAuthorize($request, new Asset(), false);
-
-        return AssetResource::collection((new Asset())->where('organization_id', '=', auth()->user()->currentOrganizationLoggedUser->organization_id)->paginate(1000));
-    }
-
-    public function store(Request $request): JsonResponse
-    {
-        $this->genericAuthorize($request, Asset::make($request->toArray()));
-
-        $messageBag_or_bool = $this->checks($request);
-        if (is_a($messageBag_or_bool, 'Illuminate\Support\MessageBag')) {
-
-            return $this->errorResponse('Request error', 'Unable to create the asset.', $messageBag_or_bool, 422);
-        }
-
-
-        $asset = Asset::create($request->toArray());
-
-        // To get all data.
-        $request->request->add(['complete_resource' => 1,]);
-
-        return $this->successResponse(new AssetResource($asset), 'The asset has been created successfully.');
-    }
-
-    public function show(Request $request, Asset $asset): JsonResponse
-    {
-        $this->genericAuthorize($request, $asset);
-
-        // To get all data.
-        $request->request->add(['complete_resource' => 1,]);
-        return response()->json(new AssetResource($asset));
-    }
-
-    public function update(Request $request, Asset $asset): JsonResponse
-    {
-        $this->genericAuthorize($request, $asset);
-
-        $messageBag_or_bool = $this->checks($request);
-        if (is_a($messageBag_or_bool, 'Illuminate\Support\MessageBag')) {
-
-            return $this->errorResponse('Request error', 'Unable to update the asset.', $messageBag_or_bool, 422);
-        }
-
-        $asset->update($request->toArray());
-
-        // To get all data.
-        $request->request->add(['complete_resource' => 1,]);
-
-        return $this->successResponse(new AssetResource($asset), 'The asset has been updated successfully.');
-    }
-
-    public function destroy(Request $request, Asset $asset): JsonResponse
-    {
-        $this->genericAuthorize($request, $asset);
-
-        $asset->delete();
-
-        return $this->successResponse(null, 'Asset deleted.');
-    }
-
     public function checks(Request $request): MessageBag|bool
     {
         // First basic check.
@@ -139,5 +79,82 @@ class AssetController extends ApiController
         }
 
         return true;
+    }
+
+    public function destroy(Request $request, Asset $asset): JsonResponse
+    {
+        $this->genericAuthorize($request, $asset);
+
+        $asset->delete();
+
+        if (App::environment() !== 'testing') {
+
+            APICacheAssetsUpdated::dispatch($asset->organization_id);
+        }
+
+        return $this->successResponse(null, 'Asset deleted.');
+    }
+
+    public function index(Request $request): AnonymousResourceCollection
+    {
+        $this->genericAuthorize($request, new Asset(), false);
+
+        return AssetResource::collection((new Asset())->where('organization_id', '=', auth()->user()->currentOrganizationLoggedUser->organization_id)->paginate(1000));
+    }
+
+    public function show(Request $request, Asset $asset): JsonResponse
+    {
+        $this->genericAuthorize($request, $asset);
+
+        // To get all data.
+        $request->request->add(['complete_resource' => 1,]);
+        return response()->json(new AssetResource($asset));
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        $this->genericAuthorize($request, Asset::make($request->toArray()));
+
+        $messageBag_or_bool = $this->checks($request);
+        if (is_a($messageBag_or_bool, 'Illuminate\Support\MessageBag')) {
+
+            return $this->errorResponse('Request error', 'Unable to create the asset.', $messageBag_or_bool, 422);
+        }
+
+
+        $asset = Asset::create($request->toArray());
+
+        if (App::environment() !== 'testing') {
+
+            APICacheAssetsUpdated::dispatch($asset->organization_id);
+        }
+
+        // To get all data.
+        $request->request->add(['complete_resource' => 1,]);
+
+        return $this->successResponse(new AssetResource($asset), 'The asset has been created successfully.');
+    }
+
+    public function update(Request $request, Asset $asset): JsonResponse
+    {
+        $this->genericAuthorize($request, $asset);
+
+        $messageBag_or_bool = $this->checks($request);
+        if (is_a($messageBag_or_bool, 'Illuminate\Support\MessageBag')) {
+
+            return $this->errorResponse('Request error', 'Unable to update the asset.', $messageBag_or_bool, 422);
+        }
+
+        $asset->update($request->toArray());
+
+        if (App::environment() !== 'testing') {
+
+            APICacheAssetsUpdated::dispatch($asset->organization_id);
+        }
+
+        // To get all data.
+        $request->request->add(['complete_resource' => 1,]);
+
+        return $this->successResponse(new AssetResource($asset), 'The asset has been updated successfully.');
     }
 }
