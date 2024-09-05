@@ -28,6 +28,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TrackLoggedUser
 {
@@ -43,7 +44,7 @@ class TrackLoggedUser
      * @return Response|RedirectResponse|JsonResponse
      * @throws Exception
      */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse
+    public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse|StreamedResponse
     {
         $response = $next($request);
 
@@ -56,6 +57,7 @@ class TrackLoggedUser
             'api/login',
             'api/logout',
             'api/report/{report}',
+            'api/asset/{asset}/download',
             'api/report/{report}/close',
         ];
 

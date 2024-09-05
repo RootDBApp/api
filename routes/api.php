@@ -71,6 +71,9 @@ Route::apiResource('asset', App\Http\Controllers\AssetController::class)->middle
 Route::post('asset/{asset}/upload', 'App\Http\Controllers\AssetController@upload')
     ->name('asset-upload')
     ->middleware(['auth:sanctum']);
+Route::get('asset/{asset}/download', 'App\Http\Controllers\AssetController@download')
+    ->name('asset-download')
+    ->middleware(['auth:sanctum']);
 
 Route::get('cache', 'App\Http\Controllers\CacheController@index')
     ->name('cache')

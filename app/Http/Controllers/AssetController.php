@@ -26,12 +26,15 @@ use App\Enums\EnumStorageType;
 use App\Events\APICacheAssetsUpdated;
 use App\Http\Resources\Asset as AssetResource;
 use App\Models\Asset;
+use File;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\MessageBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Validator;
 
 class AssetController extends ApiController
@@ -117,9 +120,15 @@ class AssetController extends ApiController
     {
         if ($asset->storage_type === EnumStorageType::FILESYSTEM) {
 
+            if ($asset->pathname !== "") {
+
+                Storage::delete($asset->pathname);
+            }
+
             $asset_path = $request->file('asset_file')->storeAs(
                 'assets', $asset->id . '_' . $request->file('asset_file')->getClientOriginalName()
-        );
+            );
+
             $asset->update(['pathname' => $asset_path]);
         }
 
@@ -127,6 +136,11 @@ class AssetController extends ApiController
         $request->request->add(['complete_resource' => 1,]);
 
         return $this->successResponse(new AssetResource($asset), 'The asset has been uploaded successfully.');
+    }
+
+    public function download(Request $request, Asset $asset): StreamedResponse
+    {
+        return Storage::download($asset->pathname);
     }
 
     private function checks(Request $request): MessageBag|bool
@@ -154,19 +168,12 @@ class AssetController extends ApiController
                         [
                             'data_content' => 'required',
                         ]);
-                } else if ($request->get('asset_source') === EnumAssetSource::FILE && (int)$request->get('id') > 0) {
-                    $this->handleUpload($request);
                 }
 
                 break;
             }
 
             case EnumStorageType::FILESYSTEM:
-                // Handle upload.
-                if ((int)$request->get('id') > 0) {
-                    $this->handleUpload($request);
-                }
-
                 break;
             case EnumStorageType::ONLINE:
             default:
