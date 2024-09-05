@@ -26,12 +26,10 @@ use App\Enums\EnumStorageType;
 use App\Events\APICacheAssetsUpdated;
 use App\Http\Resources\Asset as AssetResource;
 use App\Models\Asset;
-use File;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\MessageBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -42,6 +40,11 @@ class AssetController extends ApiController
     public function destroy(Request $request, Asset $asset): JsonResponse
     {
         $this->genericAuthorize($request, $asset);
+
+        if ($asset->pathname !== null) {
+
+            Storage::delete($asset->pathname);
+        }
 
         $asset->delete();
 
@@ -67,6 +70,18 @@ class AssetController extends ApiController
         // To get all data.
         $request->request->add(['complete_resource' => 1,]);
         return response()->json(new AssetResource($asset));
+    }
+
+    public function getJson(Request $request, Asset $asset): JsonResponse
+    {
+        $this->genericAuthorize($request, $asset, true, 'show');
+
+        if ($asset->storage_type === EnumStorageType::FILESYSTEM) {
+
+            return response()->json(Storage::get($asset->pathname));
+        }
+
+        return response()->json($asset->data_content);
     }
 
     public function store(Request $request): JsonResponse
@@ -118,9 +133,11 @@ class AssetController extends ApiController
 
     public function upload(Request $request, Asset $asset): JsonResponse
     {
+        $this->genericAuthorize($request, $asset, true, 'show');
+
         if ($asset->storage_type === EnumStorageType::FILESYSTEM) {
 
-            if ($asset->pathname !== "") {
+            if ($asset->pathname !== null) {
 
                 Storage::delete($asset->pathname);
             }
@@ -130,6 +147,17 @@ class AssetController extends ApiController
             );
 
             $asset->update(['pathname' => $asset_path]);
+        } else if ($asset->storage_type === EnumStorageType::DATABASE) {
+
+            $asset->update(
+                [
+                    'data_content' => $request->file('asset_file')->getContent()
+                ]);
+        }
+
+        if (App::environment() !== 'testing') {
+
+            APICacheAssetsUpdated::dispatch($asset->organization_id);
         }
 
         // To get all data.
@@ -140,6 +168,8 @@ class AssetController extends ApiController
 
     public function download(Request $request, Asset $asset): StreamedResponse
     {
+        $this->genericAuthorize($request, $asset, true, 'show');
+
         return Storage::download($asset->pathname);
     }
 
