@@ -74,6 +74,9 @@ Route::post('asset/{asset}/upload', 'App\Http\Controllers\AssetController@upload
 Route::get('asset/{asset}/download', 'App\Http\Controllers\AssetController@download')
     ->name('asset.download')
     ->middleware(['auth:sanctum']);
+Route::get('asset/{asset}/get-csv', 'App\Http\Controllers\AssetController@getCSV')
+    ->name('asset.get-csv')
+    ->middleware(['auth:sanctum']);
 Route::get('asset/{asset}/get-json', 'App\Http\Controllers\AssetController@getJson')
     ->name('asset.get-json')
     ->middleware(['auth:sanctum']);

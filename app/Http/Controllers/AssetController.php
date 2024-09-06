@@ -26,6 +26,7 @@ use App\Enums\EnumStorageType;
 use App\Events\APICacheAssetsUpdated;
 use App\Http\Resources\Asset as AssetResource;
 use App\Models\Asset;
+use App\Tools\CommonTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -82,6 +83,49 @@ class AssetController extends ApiController
         }
 
         return response()->json($asset->data_content);
+    }
+
+    public function getCSV(Request $request, Asset $asset): JsonResponse
+    {
+        $this->genericAuthorize($request, $asset, true, 'show');
+
+        $csv = [];
+        if ($asset->storage_type === EnumStorageType::FILESYSTEM) {
+
+            $csv = file(Storage::path($asset->pathname));
+        } else {
+
+            $csv = explode("\n", $asset->data_content);
+        }
+
+        $col_headers = [];
+        $output = [];
+
+        foreach ($csv as $line_index => $line) {
+
+            $col_values = explode(',', $line);
+
+            if ($line_index > 0) {
+
+                $new_line = [];
+                foreach ($col_values as $col_index => $value) {
+
+                    $new_line[$col_headers[$col_index]] = str_replace(["\n", "\r", "\r\n"], null, $value);
+                }
+
+                $output[] = $new_line;
+
+            } // Get header columns value.
+            else {
+
+                foreach ($col_values as $col_index => $value) {
+
+                    $col_headers[$col_index] = str_replace(["\n", "\r", "\r\n"], null, $value);
+                }
+            }
+        }
+
+        return response()->json(json_encode($output));
     }
 
     public function store(Request $request): JsonResponse

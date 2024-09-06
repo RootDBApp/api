@@ -47,6 +47,6 @@ return new class extends Migration {
                (3, 'asset', 'asset', 0, 0, 0, 0, 0, 1, 0)
         ");
 
-        DB ::statement("alter table assets add column data longblob default null comment 'When storage type = database'");
+        DB ::statement("alter table assets add column data_content longblob default null comment 'When storage type = database'");
     }
 };
