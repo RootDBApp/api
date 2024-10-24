@@ -34,7 +34,6 @@ return new class extends Migration {
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
 
             $table->enum('storage_type', ['database', 'filesystem', 'online'])->default('database')->nullable(false);
-            $table->enum('data_type', ['file', 'string'])->nullable(true)->default('string')->comment('When storage type = database');
             $table->text('pathname')->nullable(true)->comment('When storage type = filesystem');
             $table->text('url')->nullable(true)->comment('When storage type = online');
             $table->timestamps();
@@ -47,6 +46,6 @@ return new class extends Migration {
                (3, 'asset', 'asset', 0, 0, 0, 0, 0, 1, 0)
         ");
 
-        DB ::statement("alter table assets add column data longblob default null comment 'When storage type = database'");
+        DB ::statement("alter table assets add column data_content longblob default null comment 'When storage type = database'");
     }
 };
