@@ -24,6 +24,7 @@ namespace App\Models;
 use Awobaz\Compoships\Compoships;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,6 +50,7 @@ use Illuminate\Support\Carbon;
  * @property int $report_data_view_lib_version_id
  * @property int $is_visible
  * @property bool $on_queue
+ * @property string $json_runtime_configuration
  * @property-read Report $report
  * @property-read ReportDataViewLibVersion $reportDataViewLibVersion
  * @property-read ReportDataViewJs $reportDataViewJs
@@ -69,13 +71,14 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ReportDataView whereUpdatedAt($value)
  * @method static Builder|ReportDataView wherePosition($value)
  * @method static Builder|ReportDataView whereReportDataViewLibVersionId($value)
+ * @method static Builder|ReportDataView whereJsonRuntimeConfiguration($value)
  * @property int $num_runs
  * @property int $num_seconds_all_run
  * @property int $avg_seconds_by_run
  * @method static Builder|Report whereAvgSecondsByRun($value)
  * @method static Builder|Report whereNumRuns($value)
  * @method static Builder|Report whereNumSecondsAllRun($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ReportCache> $cacheReports
+ * @property-read Collection<int, ReportCache> $cacheReports
  * @property-read int|null $cache_reports_count
  * @method static Builder|ReportDataView whereDescription($value)
  * @method static Builder|ReportDataView whereDescriptionDisplayType($value)
@@ -109,7 +112,8 @@ class ReportDataView extends ApiModel
         'on_queue',
         'num_runs',
         'num_seconds_all_run',
-        'avg_seconds_by_run'
+        'avg_seconds_by_run',
+        'json_runtime_configuration'
     ];
 
     public static array $rules = [
@@ -129,7 +133,8 @@ class ReportDataView extends ApiModel
         'on_queue'                        => 'boolean',
         'num_runs'                        => 'integer',
         'num_seconds_all_run'             => 'integer',
-        'avg_seconds_by_run'              => 'integer'
+        'avg_seconds_by_run'              => 'integer',
+        'json_runtime_configuration'        => 'string'
     ];
 
     protected $casts = [
