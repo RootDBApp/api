@@ -35,7 +35,7 @@ class ReportDataView extends JsonResource
     public function toArray($request): array
     {
         $loggedUserHasRoleDev = User::searchIfLoggedUserHasUiRoleGrant(RoleGrants::PERMISSION_EDIT, RoleGrants::RESOURCE_REPORT_DATA_VIEW);
-        $json_runtime_configuration = (!$loggedUserHasRoleDev && !is_null($this->js_runtime_configuration)) ? base64_encode(gzcompress(Minifier::minify($this->js_init))) : $this->js_init;
+        $json_runtime_configuration = (!$loggedUserHasRoleDev && !is_null($this->json_runtime_configuration)) ? base64_encode(gzcompress(Minifier::minify($this->json_runtime_configuration))) : $this->json_runtime_configuration;
 
         return [
             'id'                                  => $this->id,

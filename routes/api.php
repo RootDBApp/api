@@ -194,6 +194,15 @@ Route::put('/report-data-view/{report_data_view}/query', 'App\Http\Controllers\R
     ->name('report-data-view.query')
     ->middleware('auth:sanctum');
 
+Route::apiResource('report-data-view', App\Http\Controllers\ReportDataViewController::class)->middleware('auth:sanctum');
+Route::put('/report-data-view/{report_data_view}/json-runtime-configuration', 'App\Http\Controllers\ReportDataViewController@updateJsonRuntimeConfiguration')
+    ->name('report-data-view.json-runtime-configuration')
+    ->middleware('auth:sanctum');
+
+Route::put('/report-data-view/{report_data_view}/js-module-import', 'App\Http\Controllers\ReportDataViewController@updateQuery')
+    ->name('report-data-view.query')
+    ->middleware('auth:sanctum');
+
 Route::post('report-data-view/{report_data_view}/run', 'App\Http\Controllers\ReportDataViewController@run')
     ->name('report-data-view.run')
     ->middleware('auth:sanctum');
