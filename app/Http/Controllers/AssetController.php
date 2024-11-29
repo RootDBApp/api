@@ -26,7 +26,6 @@ use App\Enums\EnumStorageType;
 use App\Events\APICacheAssetsUpdated;
 use App\Http\Resources\Asset as AssetResource;
 use App\Models\Asset;
-use App\Tools\CommonTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
