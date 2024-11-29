@@ -49,7 +49,6 @@ use Illuminate\Support\Carbon;
  * @property int $report_data_view_lib_version_id
  * @property int $is_visible
  * @property bool $on_queue
- * @property string $json_runtime_configuration
  * @property-read Report $report
  * @property-read ReportDataViewLibVersion $reportDataViewLibVersion
  * @property-read ReportDataViewJs $reportDataViewJs
@@ -70,7 +69,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ReportDataView whereUpdatedAt($value)
  * @method static Builder|ReportDataView wherePosition($value)
  * @method static Builder|ReportDataView whereReportDataViewLibVersionId($value)
- * @method static Builder|ReportDataView whereJsonRuntimeConfiguration($value)
  * @property int $num_runs
  * @property int $num_seconds_all_run
  * @property int $avg_seconds_by_run
@@ -111,8 +109,7 @@ class ReportDataView extends ApiModel
         'on_queue',
         'num_runs',
         'num_seconds_all_run',
-        'avg_seconds_by_run',
-        'json_runtime_configuration'
+        'avg_seconds_by_run'
     ];
 
     public static array $rules = [
@@ -132,8 +129,7 @@ class ReportDataView extends ApiModel
         'on_queue'                        => 'boolean',
         'num_runs'                        => 'integer',
         'num_seconds_all_run'             => 'integer',
-        'avg_seconds_by_run'              => 'integer',
-        'json_runtime_configuration'        => 'string'
+        'avg_seconds_by_run'              => 'integer'
     ];
 
     protected $casts = [

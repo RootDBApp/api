@@ -215,17 +215,6 @@ class ReportDataViewController extends ApiController
         return $this->successResponse(new ReportDataViewResource($reportDataView), 'The data view has been updated.');
     }
 
-    public function updateJsonRuntimeConfiguration(Request $request, ReportDataView $reportDataView): JsonResponse
-    {
-        $this->genericAuthorize($request, $reportDataView, true, 'update');
-
-        $reportDataView->update(['json_runtime_configuration' => $request->get('json_runtime_configuration')]);
-
-//        $this->_reportUpdate($reportDataView);
-
-        return $this->successResponse(new ReportDataViewResource($reportDataView), 'The data view has been updated.');
-    }
-
     public function run(ReportDataView $reportDataView, ConnectorService $connectorService, Request $request): JsonResponse
     {
         $this->genericAuthorize($request, $reportDataView, true, 'index');

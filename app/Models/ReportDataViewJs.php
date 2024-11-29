@@ -34,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @property int $report_data_view_id
  * @property int $report_data_view_lib_version_id
  * @property string|null $json_form
+ * @property string $json_runtime_configuration
  * @property string|null $js_register
  * @property string|null $js_code
  * @property string|null $js_init
@@ -54,6 +55,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ReportDataViewJs whereReportDataViewId($value)
  * @method static Builder|ReportDataViewJs whereReportDataViewLibVersionId($value)
  * @method static Builder|ReportDataViewJs whereUpdatedAt($value)
+ * @method static Builder|ReportDataViewJs whereJsonRuntimeConfiguration($value)
  * @mixin Eloquent
  */
 class ReportDataViewJs extends ApiModel
@@ -65,6 +67,7 @@ class ReportDataViewJs extends ApiModel
         'report_data_view_id',
         'report_data_view_lib_version_id',
         'json_form',
+        'json_runtime_configuration',
         'js_register',
         'js_code',
         'js_init',
@@ -74,6 +77,7 @@ class ReportDataViewJs extends ApiModel
         'report_data_view_id'             => 'required|integer',
         'report_data_view_lib_version_id' => 'required|integer',
         'json_form'                       => 'nullable',
+        'json_runtime_configuration'      => 'nullable',
         'js_register'                     => 'nullable',
         'js_code'                         => 'nullable',
         'js_init'                         => 'nullable',

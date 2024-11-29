@@ -42,6 +42,7 @@ class ReportDataViewJs extends JsonResource
             $js_register = (!$loggedUserHasRoleDev && !is_null($this->js_register)) ? base64_encode(gzcompress(Minifier::minify($this->js_register))) : $this->js_register;
             $js_code = (!$loggedUserHasRoleDev && !is_null($this->js_code)) ? base64_encode(gzcompress(Minifier::minify($this->js_code))) : $this->js_code;
             $js_init = (!$loggedUserHasRoleDev && !is_null($this->js_init)) ? base64_encode(gzcompress(Minifier::minify($this->js_init))) : $this->js_init;
+            $json_runtime_configuration = (!$loggedUserHasRoleDev && !is_null($this->json_runtime_configuration)) ? base64_encode(gzcompress(Minifier::minify($this->json_runtime_configuration))) : $this->json_runtime_configuration;
 
         } catch (Exception $exception) {
 
@@ -49,24 +50,26 @@ class ReportDataViewJs extends JsonResource
         }
 
         return [
-            'id'                              => $this->id,
-            'json_form'                       => $json_form,
-            'json_form_minified'              => !$loggedUserHasRoleDev,
-            'js_register'                     => $js_register,
-            'js_register_minified'            => !$loggedUserHasRoleDev,
-            'js_code'                         => $js_code,
-            'js_code_minified'                => !$loggedUserHasRoleDev,
-            'js_init'                         => $js_init,
-            'js_init_minified'                => !$loggedUserHasRoleDev,
-            'report_data_view_id'             => $this->report_data_view_id,
-            'report_data_view_lib_version_id' => $this->report_data_view_lib_version_id,
-            'report_data_view'                => $this->when(
+            'id'                                  => $this->id,
+            'json_form'                           => $json_form,
+            'json_form_minified'                  => !$loggedUserHasRoleDev,
+            'json_runtime_configuration'          => $json_runtime_configuration,
+            'json_runtime_configuration_minified' => !$loggedUserHasRoleDev,
+            'js_register'                         => $js_register,
+            'js_register_minified'                => !$loggedUserHasRoleDev,
+            'js_code'                             => $js_code,
+            'js_code_minified'                    => !$loggedUserHasRoleDev,
+            'js_init'                             => $js_init,
+            'js_init_minified'                    => !$loggedUserHasRoleDev,
+            'report_data_view_id'                 => $this->report_data_view_id,
+            'report_data_view_lib_version_id'     => $this->report_data_view_lib_version_id,
+            'report_data_view'                    => $this->when(
                 (int)$request->get('report_data_view') === 1,
                 function () {
                     return ReportDataView::make($this->reportDataView);
                 }
             ),
-            'report_data_view_lib_version'    => $this->when(
+            'report_data_view_lib_version'        => $this->when(
                 (int)$request->get('report_data_view_lib_version') === 1,
                 function () {
                     return ReportDataViewLibVersion::make($this->reportDataViewLibVersion);
