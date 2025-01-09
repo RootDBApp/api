@@ -169,7 +169,7 @@ class ReportDataViewJsController extends ApiController
     {
         $this->genericAuthorize($request, $reportDataViewJs, true, 'update');
 
-//        $reportDataViewJs->update(['json_runtime_configuration' => $request->get('json_runtime_configuration')]);
+        $reportDataViewJs->update(['json_runtime_configuration' => $request->get('json_runtime_configuration')]);
 
         if (App::environment() !== 'testing') {
 
