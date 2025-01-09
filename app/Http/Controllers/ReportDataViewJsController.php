@@ -21,6 +21,8 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use App\Events\ReportDataViewJsUpdated;
 use App\Http\Resources\ReportDataViewJs as ReportDataViewJsResource;
 use App\Models\ReportDataView;
 use App\Models\ReportDataViewLibTypes;
@@ -169,8 +171,11 @@ class ReportDataViewJsController extends ApiController
 
         $reportDataViewJs->update(['json_runtime_configuration' => $request->get('json_runtime_configuration')]);
 
-//        $this->_reportUpdate($reportDataView);
+        if (App::environment() !== 'testing') {
 
-        return $this->successResponse(new ReportDataViewJsResource($reportDataViewJs), 'The data view has been updated.');
+            ReportDataViewJsUpdated::dispatch(auth()->user()->currentOrganizationLoggedUser->web_socket_session_id, $reportDataViewJs);
+        }
+
+        return $this->successResponse(new ReportDataViewJsResource($reportDataViewJs), "The data view's Jsonc configuration has been updated.");
     }
 }
