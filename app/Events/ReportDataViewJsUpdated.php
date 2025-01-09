@@ -21,8 +21,8 @@
 
 namespace App\Events;
 
+use App\Models\ReportDataView;
 use App\Models\ReportDataViewJs;
-use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -52,6 +52,10 @@ class ReportDataViewJsUpdated implements ShouldBroadcast
     {
         return [
             'id'                         => $this->reportDataViewJs->id,
+            'report_data_view_id'        => $this->reportDataViewJs->report_data_view_id,
+            'report_data_view'           => [
+                'report_id' => $this->reportDataViewJs->reportDataView->report_id,
+            ],
             'json_runtime_configuration' => $this->reportDataViewJs->json_runtime_configuration,
         ];
     }
