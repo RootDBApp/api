@@ -43,7 +43,7 @@ return new class extends Migration {
         insert into role_grants (role_id, route_name, route_label, `index`, store, `show`, `update`, destroy, ui_edit, organization_user_bound)
         values (1, 'asset', 'asset', 1, 0, 1, 0, 0, 1, 0),
                (2, 'asset', 'asset', 1, 1, 1, 1, 1, 1, 0),
-               (3, 'asset', 'asset', 0, 0, 0, 0, 0, 1, 0)
+               (3, 'asset', 'asset', 0, 0, 1, 0, 0, 0, 0)
         ");
 
         DB ::statement("alter table assets add column data_content longblob default null comment 'When storage type = database'");
